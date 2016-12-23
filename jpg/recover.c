@@ -19,13 +19,12 @@ int main(void)
 		
 		int count=0;
 		char* infile = "card.raw";
-		FILE* outptr = NULL;
+		FILE* outptr;
 		
 		//open card.raw
 		FILE* inptr = fopen(infile,"r");
-	
 		// check for end of file
-		while(fread(&buffer, sizeof(int)*128, 1, inptr) > 0)
+		while(fread(&buffer, sizeof(int)*128, 1, inptr) == 1)
 		{
 			    //read from card.raw to buffer
 				fread(&buffer, sizeof(int)*128, 1, inptr);
@@ -33,24 +32,24 @@ int main(void)
 				//check for begining of JPEG
 				if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] == 0xe0 || buffer[3] == 0xe1))
 				{
-					
 					//print the jpg into same directory
 					sprintf(fname, "%03d.jpg", count);
+					outptr = fopen(fname,"w");
 					count++;
-					//close already open file
-					if(outptr != NULL)
+					while(1)
 					{
-						fclose(outptr);
+						fwrite(&buffer, sizeof(int)*128, 1, outptr);
+						fread(&buffer, sizeof(int)*128, 1, inptr);
+						if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] == 0xe0 || buffer[3] == 0xe1))
+						{
+							fseek(inptr,-512,SEEK_CUR);
+							fclose(outptr);
+							break;
+						}
 					}
-					//open a new file
-		        	outptr = fopen(fname,"w");
+
 				}
-				
-				//write into outfile
-				if(outptr != NULL)
-				{
-					fwrite(&buffer, sizeof(int)*128, 1, outptr);
-				}
+
 	
 		}
 		
