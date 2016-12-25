@@ -17,14 +17,17 @@ int main(void)
 		//iniltzed a buffer
 		unsigned char buffer[512];
 		
+		initilized the counter
 		int count=0;
+		
+		//setting the infile
 		char* infile = "card.raw";
+		
+		//inilized out file
 		FILE* outptr = NULL;
 		
 		//open card.raw
 		FILE* inptr = fopen(infile,"r");
-		
-		//read from card.raw to buffer
 		
 		// check for end of file
 		while(fread(buffer, 512, 1, inptr) == 1)
@@ -36,15 +39,22 @@ int main(void)
 					//print the jpg into same directory
 					sprintf(fname, "%03d.jpg", count);
 					//open the jpg file
+					outptr = fopen(fname,"w");
 					
-					outptr = fopen(fname,"w");
+					//close the open jpg file
 					fclose(outptr);
+					
+					//reopen the jpg file
 					outptr = fopen(fname,"w");
+					
+					//updates the counter
 					count++;
 				}
 				
+				//check if, jpg is open
 				if(outptr !=NULL)
 				{
+					//writes 512 bytes into current open jpg
 					fwrite(buffer,512,1,outptr);
 
 				}
