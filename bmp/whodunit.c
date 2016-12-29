@@ -82,18 +82,13 @@ int main(int argc, char* argv[])
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
             
             // Making outfile color
-            if( triple.rgbtBlue  == 0 && triple.rgbtGreen == 0)
+            if(triple.rgbtBlue  == 0 && triple.rgbtGreen == 0)
             {
                 triple.rgbtRed = 255;
                 triple.rgbtBlue  = 255;
                 triple.rgbtGreen  = 255;
             }
             
-            else if(triple.rgbtRed != 255 && triple.rgbtBlue  != 255 && triple.rgbtGreen  != 255)
-            {
-                triple.rgbtBlue = 255;
-            }
-           
             
             // write RGB triple to outfile
             fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
@@ -115,6 +110,8 @@ int main(int argc, char* argv[])
 
     // close outfile
     fclose(outptr);
+    
+     
 
     // that's all folks
     return 0;
