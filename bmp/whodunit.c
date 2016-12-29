@@ -84,7 +84,9 @@ int main(int argc, char* argv[])
             // Making outfile color
             if( triple.rgbtBlue  == 0 && triple.rgbtGreen == 0)
             {
-                triple.rgbtRed =0;
+                triple.rgbtRed = 0;
+                triple.rgbtBlue  = 0;
+                triple.rgbtGreen  = 0;
             }
            
             
