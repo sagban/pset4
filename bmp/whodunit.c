@@ -80,9 +80,14 @@ int main(int argc, char* argv[])
             
             // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
+            
             // Making outfile color
-            triple.rgbtBlue=0;
-            triple.rgbtGreen=0;
+            if( triple.rgbtBlue  == 0 && triple.rgbtGreen == 0)
+            {
+                triple.rgbtRed =0;
+            }
+           
+            
             // write RGB triple to outfile
             fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
         }
@@ -93,6 +98,7 @@ int main(int argc, char* argv[])
         // then add it back (to demonstrate how)
         for (int k = 0; k < padding; k++)
         {
+            //put zero into outfile
             fputc(0x00, outptr);
         }
     }
