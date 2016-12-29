@@ -88,6 +88,11 @@ int main(int argc, char* argv[])
                 triple.rgbtBlue  = 255;
                 triple.rgbtGreen  = 255;
             }
+            
+            else if(triple.rgbtRed != 255 && triple.rgbtBlue  != 255 && triple.rgbtGreen  != 255)
+            {
+                triple.rgbtBlue = 255;
+            }
            
             
             // write RGB triple to outfile
