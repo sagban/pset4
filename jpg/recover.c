@@ -17,7 +17,7 @@ int main(void)
 		//iniltzed a buffer
 		unsigned char buffer[512];
 		
-		initilized the counter
+		//initilized the counter
 		int count=0;
 		
 		//setting the infile
